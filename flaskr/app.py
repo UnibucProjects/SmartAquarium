@@ -5,6 +5,8 @@ from flask_socketio import SocketIO
 
 import db
 import auth
+import temperature
+import status
 
 import eventlet
 import json
@@ -17,6 +19,8 @@ app = None
 mqtt = None
 socketio = None
 thread = None
+
+topic = 'python/mqtt'
 
 def create_app(test_config=None):
     
@@ -52,6 +56,7 @@ def create_app(test_config=None):
 
     db.init_app(app)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(temperature.bp)
 
     return app
 
@@ -62,9 +67,10 @@ def background_thread():
         # Using app context is required because the get_status() functions
         # requires access to the db.
         with app.app_context():
-            message = 'dummy message'
+            # message = 'dummy message'
+            message = json.dumps(status.get_status(), default=str)
         # Publish
-        mqtt.publish('python/mqtt', message)
+        mqtt.publish(topic, message)
 
 def create_mqtt_app():
     global app 
@@ -80,8 +86,6 @@ def create_mqtt_app():
     mqtt = Mqtt(app)
     global socketio 
     socketio = SocketIO(app, async_mode="eventlet")
-
-    return mqtt
 
 def run_socketio_app():
     global app 
