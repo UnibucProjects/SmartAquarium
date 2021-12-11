@@ -1,20 +1,22 @@
 from db import get_db
 
+
 def get_status():
-    temperature_data = get_db().execute(
-        'SELECT id, timestamp, value'
-        ' FROM temperature'
+    food_data = get_db().execute(
+        'SELECT id, timestamp, type, quantity'
+        ' FROM food'
         ' ORDER BY timestamp DESC'
     ).fetchone()
     
-    if temperature_data is None:
-        return {'status': 'The tempeture isn\'t set'}
+    if food_data is None:
+        return {'status': 'The food isn\'t set'}
     
     return {
         'data': {
-            'temperature':{ 
-                'data': temperature_data['value'],
-                'timestamp': temperature_data['timestamp'] 
+            'food': {
+                'type': food_data['type'],
+                'quantity': food_data['quantity'],
+                'timestamp': food_data['timestamp']
                            }
             
         }
