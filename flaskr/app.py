@@ -5,7 +5,7 @@ from flask_socketio import SocketIO
 
 import db
 import auth
-import temperature
+import food
 import status
 
 import eventlet
@@ -56,7 +56,7 @@ def create_app(test_config=None):
 
     db.init_app(app)
     app.register_blueprint(auth.bp)
-    app.register_blueprint(temperature.bp)
+    app.register_blueprint(food.bp)
 
     return app
 

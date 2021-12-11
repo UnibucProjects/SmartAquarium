@@ -1,5 +1,15 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS temperature;
+DROP TABLE IF EXISTS water;
+DROP TABLE IF EXISTS light;
+DROP TABLE IF EXISTS feeding_schedule;
+DROP TABLE IF EXISTS fish;
+DROP TABLE IF EXISTS fish_type;
+DROP TABLE IF EXISTS facility;
+DROP TABLE IF EXISTS food;
+DROP TABLE IF EXISTS aquarium;
+
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,8 +26,83 @@ CREATE TABLE post (
   FOREIGN KEY (author_id) REFERENCES user (id)
 );
 
-CREATE TABLE temperature (
+CREATE TABLE aquarium (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  default_mode TEXT NOT NULL,
+  total_food_quantity REAL NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE food (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  type TEXT NOT NULL,
+  quantity REAL NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE feeding_schedule (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  aquarium_id INTEGER NOT NULL,
+  food_type_id INTEGER NOT NULL,
+  schedule TEXT NOT NULL,
+  available_type_quantity REAL NOT NULL,
   timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  value REAL NOT NULL
+  FOREIGN KEY (aquarium_id) REFERENCES aquarium (id),
+  FOREIGN KEY (food_type_id) REFERENCES food (id)
+);
+
+CREATE TABLE facility (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  aquarium_id INTEGER NOT NULL,
+  electricity INTEGER NOT NULL,
+  movement_sensor INTEGER NOT NULL,
+  temperature_sensor INTEGER NOT NULL,
+  filter_sensor INTEGER NOT NULL,
+  weight_sensor INTEGER NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (aquarium_id) REFERENCES aquarium (id)
+);
+
+CREATE TABLE light (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  aquarium_id INTEGER NOT NULL,
+  intensity REAL NOT NULL,
+  color TEXT NOT NULL,
+  schedule TEXT NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (aquarium_id) REFERENCES aquarium (id)
+);
+
+CREATE TABLE water (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  aquarium_id INTEGER NOT NULL,
+  pH REAL NOT NULL,
+  oxygen REAL NOT NULL,
+  bacteria INTEGER NOT NULL,
+  temperature REAL NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (aquarium_id) REFERENCES aquarium (id)
+);
+
+CREATE TABLE fish_type (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  food_id INTEGER NOT NULL,
+  min_temperature REAL NOT NULL,
+  max_temperature REAL NOT NULL,
+  min_light_intensity REAL NOT NULL,
+  max_light_intensity REAL NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (food_id) REFERENCES food (id)
+);
+
+CREATE TABLE fish (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  type_id INTEGER NOT NULL,
+  aquarium_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  health INTEGER NOT NULL,
+  birthday TEXT,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (aquarium_id) REFERENCES aquarium (id),
+  FOREIGN KEY (type_id) REFERENCES fish_type (id)
 );
