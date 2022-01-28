@@ -8,6 +8,7 @@ import auth
 import food
 import aquarium
 import status
+import fish_type
 
 import eventlet
 import json
@@ -59,6 +60,7 @@ def create_app(test_config=None):
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(food.bp)
+    app.register_blueprint(fish_type.bp)
     app.register_blueprint(aquarium.bp)
 
     return app
