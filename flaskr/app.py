@@ -6,6 +6,7 @@ from flask_socketio import SocketIO
 import db
 import auth
 import food
+import aquarium
 import status
 import fish_type
 
@@ -22,6 +23,7 @@ socketio = None
 thread = None
 
 topic = 'python/mqtt'
+
 
 def create_app(test_config=None):
     
@@ -59,6 +61,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(food.bp)
     app.register_blueprint(fish_type.bp)
+    app.register_blueprint(aquarium.bp)
 
     return app
 
@@ -73,6 +76,7 @@ def background_thread():
             message = json.dumps(status.get_status(), default=str)
         # Publish
         mqtt.publish(topic, message)
+
 
 def create_mqtt_app():
     global app 
@@ -89,11 +93,13 @@ def create_mqtt_app():
     global socketio 
     socketio = SocketIO(app, async_mode="eventlet")
 
+
 def run_socketio_app():
     global app 
     create_app()
     create_mqtt_app()
     socketio.run(app, host='localhost', port=5000, use_reloader=False, debug=True)
+
 
 if __name__ == '__main__':
     run_socketio_app()
