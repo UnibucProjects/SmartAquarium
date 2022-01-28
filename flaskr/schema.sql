@@ -86,6 +86,7 @@ CREATE TABLE water (
 
 CREATE TABLE fish_type (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
   food_id INTEGER NOT NULL,
   min_temperature REAL NOT NULL,
   max_temperature REAL NOT NULL,
