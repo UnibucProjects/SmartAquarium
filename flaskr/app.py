@@ -12,6 +12,7 @@ import status
 import fish_type
 import facility
 import fish
+import water
 
 import eventlet
 import json
@@ -68,6 +69,7 @@ def create_app(test_config=None):
     app.register_blueprint(feeding_schedule.bp)
     app.register_blueprint(facility.bp)
     app.register_blueprint(fish.bp)
+    app.register_blueprint(water.bp)
     return app
 
 def background_thread():
