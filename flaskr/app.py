@@ -10,6 +10,7 @@ import aquarium
 import feeding_schedule
 import status
 import fish_type
+import facility
 
 import eventlet
 import json
@@ -64,6 +65,7 @@ def create_app(test_config=None):
     app.register_blueprint(fish_type.bp)
     app.register_blueprint(aquarium.bp)
     app.register_blueprint(feeding_schedule.bp)
+    app.register_blueprint(facility.bp)
 
     return app
 
