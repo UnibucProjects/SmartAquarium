@@ -31,6 +31,7 @@ def set_aquarium():
 
     print(default_mode)
     print(total_quantity)
+
     db = get_db()
     db.execute(
         'INSERT INTO aquarium(default_mode, total_food_quantity)'
@@ -99,7 +100,7 @@ def update_aquarium():
 
 
 @bp.route("/aquarium", methods=["DELETE"])
-def delete_food():
+def delete_aquarium():
     aquarium_id = request.form["id"]
 
     if not aquarium_id:
