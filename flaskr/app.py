@@ -7,6 +7,7 @@ import db
 import auth
 import food
 import aquarium
+import feeding_schedule
 import status
 import fish_type
 
@@ -62,6 +63,7 @@ def create_app(test_config=None):
     app.register_blueprint(food.bp)
     app.register_blueprint(fish_type.bp)
     app.register_blueprint(aquarium.bp)
+    app.register_blueprint(feeding_schedule.bp)
 
     return app
 
