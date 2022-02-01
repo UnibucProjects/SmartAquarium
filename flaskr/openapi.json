@@ -1,0 +1,2295 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "SmartAquarium",
+    "description": "OpenAPI Specification.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "contact": {
+      "name": "UnibucBears",
+      "url": "https://github.com/UnibucProjects",
+      "email": "unibucbears@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000/"
+    }
+  ],
+  "paths": {
+    "/aquarium": {
+      "get": {
+        "summary": "Get the aquariums from the database",
+        "operationId": "get_aquarium",
+        "tags": [
+          "Aquarium"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved aquariums",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AquariumsListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new aquarium",
+        "operationId": "set_aquarium",
+        "tags": [
+          "Aquarium"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewAquarium"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aquarium successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AquariumResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Aquarium couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an aquarium",
+        "operationId": "update_aquarium",
+        "tags": [
+          "Aquarium"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateAquarium"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aquarium successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AquariumResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Aquarium couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/aquarium/{id}": {
+      "delete": {
+        "summary": "Delete an aquarium",
+        "operationId": "delete_aquarium",
+        "tags": [
+          "Aquarium"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Aquarium request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aquarium successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Aquarium couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/facility": {
+      "get": {
+        "summary": "Get the facilities from the database",
+        "operationId": "get_facility",
+        "tags": [
+          "Facility"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved facilities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilitiesListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new facility",
+        "operationId": "set_facility",
+        "tags": [
+          "Facility"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewFacility"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Facility successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Facility couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a facility",
+        "operationId": "update_facility",
+        "tags": [
+          "Facility"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateFacility"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Facility successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Facility couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/facility/{id}": {
+      "delete": {
+        "summary": "Delete a facility",
+        "operationId": "delete_facility",
+        "tags": [
+          "Facility"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Facility request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Facility successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Facility couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/feeding_schedule": {
+      "get": {
+        "summary": "Get the feeding schedules from the database",
+        "operationId": "get_feeding_schedule",
+        "tags": [
+          "Feeding schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved feeding schedules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedingSchedulesListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new feeding schedule",
+        "operationId": "set_feeding_schedule",
+        "tags": [
+          "Feeding schedule"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewFeedingSchedule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Feeding schedule successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedingScheduleResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Feeding schedule couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a feeding schedule",
+        "operationId": "update_feeding_schedule",
+        "tags": [
+          "Feeding schedule"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateFeedingSchedule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Feeding schedule successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedingScheduleResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Feeding schedule couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/feeding_schedule/{id}": {
+      "delete": {
+        "summary": "Delete a feeding schedule",
+        "operationId": "delete_feeding_schedule",
+        "tags": [
+          "Feeding schedule"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Feeding schedule request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feeding schedule successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Feeding schedule couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/fish": {
+      "get": {
+        "summary": "Get the fish from the database",
+        "operationId": "get_fish",
+        "tags": [
+          "Fish"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved fish",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new fish",
+        "operationId": "set_fish",
+        "tags": [
+          "Fish"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewFish"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fish successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a fish",
+        "operationId": "update_fish",
+        "tags": [
+          "Fish"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateFish"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fish successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/fish/{id}": {
+      "delete": {
+        "summary": "Delete a fish",
+        "operationId": "delete_fish",
+        "tags": [
+          "Fish"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Fish request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fish successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/fish_type": {
+      "get": {
+        "summary": "Get fish type from the database",
+        "operationId": "get_fish_type",
+        "tags": [
+          "Fish type"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved fish types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishTypesListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new fish type",
+        "operationId": "set_fish_type",
+        "tags": [
+          "Fish type"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewFishType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fish type successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishTypeResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish type couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a fish type",
+        "operationId": "update_fish_type",
+        "tags": [
+          "Fish type"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateFishType"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Fish type successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FishTypeResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish type couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/fish_type/{id}": {
+      "delete": {
+        "summary": "Delete fish type",
+        "operationId": "delete_fish_type",
+        "tags": [
+          "Fish type"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Fish type request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fish type successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fish type couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/food": {
+      "get": {
+        "summary": "Get food from the database",
+        "operationId": "get_food",
+        "tags": [
+          "Food"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved food",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoodListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new food",
+        "operationId": "set_food",
+        "tags": [
+          "Food"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewFood"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Food successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoodResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Food couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update food",
+        "operationId": "update_food",
+        "tags": [
+          "Food"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateFood"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Food successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoodResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Food couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/food/{id}": {
+      "delete": {
+        "summary": "Delete food",
+        "operationId": "delete_food",
+        "tags": [
+          "Food"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Food request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Food couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/light": {
+      "get": {
+        "summary": "Get light from the database",
+        "operationId": "get_light",
+        "tags": [
+          "Light"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved light",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LightListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new light",
+        "operationId": "set_light",
+        "tags": [
+          "Light"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewLight"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Light successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LightResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Light couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update light",
+        "operationId": "update_light",
+        "tags": [
+          "Light"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateLight"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Light successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LightResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Light couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/light/{id}": {
+      "delete": {
+        "summary": "Delete light",
+        "operationId": "delete_light",
+        "tags": [
+          "Light"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Light request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Light successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Light couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/water": {
+      "get": {
+        "summary": "Get water from the database",
+        "operationId": "get_water",
+        "tags": [
+          "Water"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved water",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add new water",
+        "operationId": "set_water",
+        "tags": [
+          "Water"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/NewWater"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Water successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Water couldn't be created because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update water",
+        "operationId": "update_water",
+        "tags": [
+          "Water"
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateWater"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Water successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Water couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/water/{id}": {
+      "delete": {
+        "summary": "Delete water",
+        "operationId": "delete_water",
+        "tags": [
+          "Water"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Water request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Water successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Water couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+
+      "StatusResponse":{
+        "type": "object",
+        "properties":{
+          "status":{
+            "type": "string"
+          }
+        }
+      },
+
+      "AquariumsListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "default_mode": {
+                  "type": "string"
+                },
+                "total_food_quantity": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewAquarium": {
+        "type": "object",
+        "properties":{
+          "mode": {
+            "type": "string"
+          },
+          "total_quant":{
+            "type":"number"
+          }
+        }
+      },
+      "UpdateAquarium": {
+        "type": "object",
+        "properties":{
+          "id": {
+            "type": "integer"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "total_quant":{
+            "type":"number"
+          }
+        }
+      },
+      "AquariumResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "default_mode": {
+                "type": "string"
+              },
+              "total_food_quantity": {
+                "type": "number"
+              },
+              "timestamp": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "FacilitiesListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "aquarium_id": {
+                  "type": "integer"
+                },
+                "electricity": {
+                  "type": "integer"
+                },
+                "movement_sensor": {
+                  "type": "integer"
+                },
+                "temperature_sensor": {
+                  "type": "integer"
+                },
+                "filter_sensor": {
+                  "type": "integer"
+                },
+                "weight_sensor": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewFacility": {
+        "type": "object",
+        "properties": {
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "electricity": {
+            "type": "integer"
+          },
+          "movement_sensor": {
+            "type": "integer"
+          },
+          "temperature_sensor": {
+            "type": "integer"
+          },
+          "filter_sensor": {
+            "type": "integer"
+          },
+          "weight_sensor": {
+            "type": "integer"
+          }
+        }
+      },
+      "UpdateFacility": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "electricity": {
+            "type": "integer"
+          },
+          "movement_sensor": {
+            "type": "integer"
+          },
+          "temperature_sensor": {
+            "type": "integer"
+          },
+          "filter_sensor": {
+            "type": "integer"
+          },
+          "weight_sensor": {
+            "type": "integer"
+          }
+        }
+      },
+      "FacilityResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "electricity": {
+            "type": "integer"
+          },
+          "movement_sensor": {
+            "type": "integer"
+          },
+          "temperature_sensor": {
+            "type": "integer"
+          },
+          "filter_sensor": {
+            "type": "integer"
+          },
+          "weight_sensor": {
+            "type": "integer"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "FeedingSchedulesListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "aquarium_id": {
+                  "type": "integer"
+                },
+                "food_type_id": {
+                  "type": "integer"
+                },
+                "schedule": {
+                  "type": "string"
+                },
+                "available_type_quantiy": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewFeedingSchedule": {
+        "type": "object",
+        "properties": {
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "food_type_id": {
+            "type": "integer"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "available_type_quantiy": {
+            "type": "number"
+          }
+        }
+      },
+      "UpdateFeedingSchedule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "food_type_id": {
+            "type": "integer"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "available_type_quantiy": {
+            "type": "number"
+          }
+        }
+      },
+      "FeedingScheduleResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "food_type_id": {
+            "type": "integer"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "available_type_quantiy": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "FishListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "type_id": {
+                  "type": "integer"
+                },
+                "aquarium_id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "health": {
+                  "type": "integer"
+                },
+                "birthday": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewFish": {
+        "type": "object",
+        "properties": {
+          "type_id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "health": {
+            "type": "integer"
+          },
+          "birthday": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateFish": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type_id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "health": {
+            "type": "integer"
+          },
+          "birthday": {
+            "type": "string"
+          }
+        }
+      },
+      "FishResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type_id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "health": {
+            "type": "integer"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "FishTypesListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "food_id": {
+                  "type": "integer"
+                },
+                "min_temperature": {
+                  "type": "integer"
+                },
+                "max_temperature": {
+                  "type": "integer"
+                },
+                "min_light_intensity": {
+                  "type": "number"
+                },
+                "max_light_intensity": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewFishType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "food_id": {
+            "type": "integer"
+          },
+          "min_temperature": {
+            "type": "integer"
+          },
+          "max_temperature": {
+            "type": "integer"
+          },
+          "min_light_intensity": {
+            "type": "number"
+          },
+          "max_light_intensity": {
+            "type": "number"
+          }
+        }
+      },
+      "UpdateFishType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "food_id": {
+            "type": "integer"
+          },
+          "min_temperature": {
+            "type": "integer"
+          },
+          "max_temperature": {
+            "type": "integer"
+          },
+          "min_light_intensity": {
+            "type": "number"
+          },
+          "max_light_intensity": {
+            "type": "number"
+          }
+        }
+      },
+      "FishTypeResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "food_id": {
+            "type": "integer"
+          },
+          "min_temperature": {
+            "type": "integer"
+          },
+          "max_temperature": {
+            "type": "integer"
+          },
+          "min_light_intensity": {
+            "type": "number"
+          },
+          "max_light_intensity": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "FoodListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewFood": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        }
+      },
+      "UpdateFood": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        }
+      },
+      "FoodResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "LightListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "aquarium_id": {
+                  "type": "integer"
+                },
+                "intensity": {
+                  "type": "number"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "schedule": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewLight": {
+        "type": "object",
+        "properties": {
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "intensity": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateLight": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "intensity": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          }
+        }
+      },
+      "LightResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "intensity": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+
+      "WaterListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "aquarium_id": {
+                  "type": "integer"
+                },
+                "pH": {
+                  "type": "number"
+                },
+                "oxygen": {
+                  "type": "number"
+                },
+                "bacteria": {
+                  "type": "integer"
+                },
+                "temperature": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewWater": {
+        "type": "object",
+        "properties": {
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "pH": {
+            "type": "number"
+          },
+          "oxygen": {
+            "type": "number"
+          },
+          "bacteria": {
+            "type": "integer"
+          },
+          "temperature": {
+            "type": "number"
+          }
+        }
+      },
+      "UpdateWater": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "pH": {
+            "type": "number"
+          },
+          "oxygen": {
+            "type": "number"
+          },
+          "bacteria": {
+            "type": "integer"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+      "WaterResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "aquarium_id": {
+            "type": "integer"
+          },
+          "pH": {
+            "type": "number"
+          },
+          "oxygen": {
+            "type": "number"
+          },
+          "bacteria": {
+            "type": "integer"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "SuccessfullyAquariumsRetrieval": {
+        "description": "Successfully retrieved the aquariums",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AquariumsListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyAquariumCreation": {
+        "description": "Aquarium successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AquariumResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyAquariumUpdate": {
+        "description": "Aquarium successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AquariumResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyAquariumDelete": {
+        "description": "Aquarium successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyFacilitiesRetrieval": {
+        "description": "Successfully retrieved the facilities",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FacilitiesListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFacilityCreation": {
+        "description": "Facility successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FacilityResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFacilityUpdate": {
+        "description": "Facility successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FacilityResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFacilityDelete": {
+        "description": "Facility successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyFeedingSchedulesRetrieval": {
+        "description": "Successfully retrieved the feeding schedules",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FeedingSchedulesListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFeedingScheduleCreation": {
+        "description": "Feeding schedule successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FeedingScheduleResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFeedingScheduleUpdate": {
+        "description": "Feeding schedule successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FeedingScheduleResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFeedingScheduleDelete": {
+        "description": "Feeding schedule successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyFishRetrieval": {
+        "description": "Successfully retrieved the fish",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishCreation": {
+        "description": "Fish successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishUpdate": {
+        "description": "Fish successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishDelete": {
+        "description": "Fish successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyFishTypesRetrieval": {
+        "description": "Successfully retrieved fish types",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishTypesListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishTypeCreation": {
+        "description": "Fish type successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishTypeResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishTypeUpdate": {
+        "description": "Fish type successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FishTypeResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFishTypeDelete": {
+        "description": "Fish type successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyFoodRetrieval": {
+        "description": "Successfully retrieved food",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FoodListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFoodCreation": {
+        "description": "Food successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FoodResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFoodUpdate": {
+        "description": "Food successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/FoodResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyFoodDelete": {
+        "description": "Food successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyLightRetrieval": {
+        "description": "Successfully retrieved light",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LightListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyLightCreation": {
+        "description": "Light successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LightResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyLightUpdate": {
+        "description": "Light successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LightResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyLightDelete": {
+        "description": "Light successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      },
+
+      "SuccessfullyWaterRetrieval": {
+        "description": "Successfully retrieved water",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WaterListResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyWaterCreation": {
+        "description": "Water successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WaterResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyWatertUpdate": {
+        "description": "Water successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WaterResponse"
+            }
+          }
+        }
+      },
+      "SuccessfullyWatertDelete": {
+        "description": "Water successfully deleted",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StatusResponse"
+            }
+          }
+        }
+      }
+    }
+  }
+}

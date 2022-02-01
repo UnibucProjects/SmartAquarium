@@ -151,20 +151,18 @@ def update_facility():
     }), 200
 
 
-@bp.route('/facility', methods=['DELETE'])
-def delete_facility():
-    facility_id = request.form['id']
-
-    if not facility_id:
+@bp.route('/facility/<string:_id>', methods=['DELETE'])
+def delete_facility(_id):
+    if not _id:
         return jsonify({'status': 'Facility id is required.'}), 403
 
-    print(facility_id)
+    print(_id)
 
     db = get_db()
     db.execute(
         'DELETE FROM facility'
         ' WHERE id=?',
-        (facility_id,)
+        (_id,)
     )
     db.commit()
 

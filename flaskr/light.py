@@ -115,19 +115,17 @@ def update_light():
     }), 200
 
 
-@bp.route('/light', methods=['DELETE'])
-def delete_light():
-    light_id = request.form['id']
-
-    if not light_id:
+@bp.route('/light/<string:_id>', methods=['DELETE'])
+def delete_light(_id):
+    if not _id:
         return jsonify({'status': 'Light id is required.'}), 403
-    print(f"Light id is {light_id}")
+    print(f"Light id is {_id}")
 
     db = get_db()
     db.execute(
         'DELETE FROM light'
         ' WHERE id=?',
-        (light_id,)
+        (_id,)
     )
     db.commit()
     return jsonify({'status': 'Light successfully deleted.'}), 200

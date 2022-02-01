@@ -121,18 +121,16 @@ def update_water():
     }), 200
 
 
-@bp.route('/water', methods=['DELETE'])
-def delete_water():
-    water_id = request.form['id']
-
-    if not water_id:
+@bp.route('/water/<string:_id>', methods=['DELETE'])
+def delete_water(_id):
+    if not _id:
         return jsonify({'status': 'Water id is required'}), 403
 
     db = get_db()
     db.execute(
         'DELETE FROM water'
         ' WHERE id=?',
-        (water_id,)
+        (_id,)
     )
     db.commit()
 

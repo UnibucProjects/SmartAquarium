@@ -44,12 +44,12 @@ def get_status():
                 'timestamp': aquarium_data['timestamp']
             },
             'light': {
-            # 'id': light_data['id'],
-            'timestamp': light_data['timestamp'],
-            'aquarium_id': light_data['aquarium_id'],
-            'intensity': light_data['intensity'],
-            'color': light_data['color'],
-            'schedule': light_data['schedule']
+                # 'id': light_data['id'],
+                'timestamp': light_data['timestamp'],
+                'aquarium_id': light_data['aquarium_id'],
+                'intensity': light_data['intensity'],
+                'color': light_data['color'],
+                'schedule': light_data['schedule']
             }
             
         }

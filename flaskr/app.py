@@ -3,6 +3,7 @@ from threading import Thread
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 
+
 import db
 import auth
 import food
@@ -41,7 +42,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
-      
+
     @app.route('/')
     def hello():
         global thread, thread_water_prefs
@@ -131,4 +132,3 @@ def run_socketio_app():
 
 if __name__ == '__main__':
     run_socketio_app()
-    

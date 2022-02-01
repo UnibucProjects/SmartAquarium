@@ -142,20 +142,18 @@ def update_fish_type():
     }), 200
 
 
-@bp.route('/fish_type', methods=['DELETE'])
-def delete_fish_type():
-    fish_type_id = request.form['id']
-
-    if not fish_type_id:
+@bp.route('/fish_type/<string:_id>', methods=['DELETE'])
+def delete_fish_type(_id):
+    if not _id:
         return jsonify({'status': 'Fish type id is required.'}), 403
 
-    print(fish_type_id)
+    print(_id)
 
     db = get_db()
     db.execute(
         'DELETE FROM fish_type'
         ' WHERE id=?',
-        (fish_type_id,)
+        (_id,)
     )
     db.commit()
 
