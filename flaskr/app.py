@@ -8,6 +8,7 @@ import auth
 import food
 import aquarium
 import feeding_schedule
+import water_preferences
 import status
 import fish_type
 import facility
@@ -26,6 +27,7 @@ app = None
 mqtt = None
 socketio = None
 thread = None
+thread_water_prefs = None
 
 topic = 'python/mqtt'
 
@@ -42,11 +44,16 @@ def create_app(test_config=None):
       
     @app.route('/')
     def hello():
-        global thread
+        global thread, thread_water_prefs
         if thread is None:
             thread = Thread(target=background_thread)
             thread.daemon = True
             thread.start()
+
+            thread_water_prefs = Thread(target=thread_water_preferences)
+            thread_water_prefs.daemon = True
+            thread_water_prefs.start()
+
         return 'Hello, World!'
 
     if test_config is None:
@@ -74,6 +81,7 @@ def create_app(test_config=None):
     app.register_blueprint(light.bp)
     return app
 
+
 def background_thread():
     count = 0
     while True:
@@ -83,6 +91,17 @@ def background_thread():
         with app.app_context():
             # message = 'dummy message'
             message = json.dumps(status.get_status(), default=str)
+        # Publish
+        mqtt.publish(topic, message)
+
+
+def thread_water_preferences():
+    while True:
+        time.sleep(3)
+        with app.app_context():
+            message = '\nTemperature auto-check!\n'
+            message += json.dumps(water_preferences.fix_temperature(), default=str)
+            message += '\n'
         # Publish
         mqtt.publish(topic, message)
 
