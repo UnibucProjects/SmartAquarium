@@ -109,7 +109,7 @@ def update_feeding_schedule():
         'SELECT * '
         'FROM feeding_schedule '
         'WHERE id=?',
-        feeding_id
+        (feeding_id,)
     ).fetchone()
 
     return jsonify({
@@ -125,20 +125,18 @@ def update_feeding_schedule():
     }), 200
 
 
-@bp.route("/feeding_schedule", methods=["DELETE"])
-def delete_feeding_schedule():
-    feeding_id = request.form["id"]
-
-    if not feeding_id:
+@bp.route("/feeding_schedule/<string:_id>", methods=["DELETE"])
+def delete_feeding_schedule(_id):
+    if not _id:
         return jsonify({"status": "Feeding schedule id is required."}), 403
 
-    print(feeding_id)
+    print(_id)
 
     db = get_db()
     db.execute(
         'DELETE FROM feeding_schedule '
         'WHERE id=?',
-        feeding_id
+        (_id,)
     )
     db.commit()
 

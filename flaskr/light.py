@@ -6,7 +6,7 @@ bp = Blueprint('light', __name__)
 
 
 @bp.route('/light', methods=['POST'])
-def set_food():
+def set_light():
     aquarium_id = request.form['aquarium_id']
     intensity = request.form['intensity']
     color = request.form['color']

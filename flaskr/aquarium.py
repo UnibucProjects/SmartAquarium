@@ -86,7 +86,7 @@ def update_aquarium():
         'SELECT id, timestamp, default_mode, total_food_quantity'
         ' FROM aquarium'
         ' WHERE id=?',
-        aquarium_id
+        (aquarium_id,)
     ).fetchone()
     return jsonify({
         'status': 'Aquarium successfully updated',
@@ -99,20 +99,18 @@ def update_aquarium():
     }), 200
 
 
-@bp.route("/aquarium", methods=["DELETE"])
-def delete_aquarium():
-    aquarium_id = request.form["id"]
-
-    if not aquarium_id:
+@bp.route("/aquarium/<string:_id>", methods=["DELETE"])
+def delete_aquarium(_id):
+    if not _id:
         return jsonify({'status': 'Aquarium id is required.'}), 403
 
-    print(aquarium_id)
+    print(_id)
 
     db = get_db()
     db.execute(
         'DELETE FROM aquarium'
         ' WHERE id=?',
-        aquarium_id
+        (_id,)
     )
     db.commit()
 

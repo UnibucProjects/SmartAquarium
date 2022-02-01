@@ -114,7 +114,7 @@ def update_fish():
         'SELECT *'
         ' FROM fish'
         ' WHERE id=?',
-        fish_id
+        (fish_id,)
     ).fetchone()
     return jsonify({
         'status': 'Fish successfully updated',
@@ -130,19 +130,17 @@ def update_fish():
     }), 200
 
 
-@bp.route('/fish', methods=['DELETE'])
-def delete_fish():
-    fish_id = request.form['id']
-
-    if not fish_id:
+@bp.route('/fish/<string:_id>', methods=['DELETE'])
+def delete_fish(_id):
+    if not _id:
         return jsonify({'status': 'Fish id is required.'}), 403
-    print(f"Fish id is {fish_id}")
+    print(f"Fish id is {_id}")
 
     db = get_db()
     db.execute(
         'DELETE FROM fish'
         ' WHERE id=?',
-        fish_id
+        (_id,)
     )
     db.commit()
     return jsonify({'status': 'Fish successfully deleted.'}), 200
