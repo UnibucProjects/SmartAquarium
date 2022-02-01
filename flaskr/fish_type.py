@@ -121,8 +121,12 @@ def update_fish_type():
         'SELECT *'
         ' FROM fish_type'
         ' WHERE id=?',
-        fish_type_id
+        (fish_type_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Fish type does not exist.'}), 404
+
     return jsonify({
         'status': 'Fish type successfully updated',
         'data': {
@@ -151,7 +155,7 @@ def delete_fish_type():
     db.execute(
         'DELETE FROM fish_type'
         ' WHERE id=?',
-        fish_type_id
+        (fish_type_id,)
     )
     db.commit()
 

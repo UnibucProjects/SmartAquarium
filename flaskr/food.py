@@ -83,8 +83,12 @@ def update_food():
         'SELECT id, timestamp, type, quantity'
         ' FROM food'
         ' WHERE id=?',
-        food_id
+        (food_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Food does not exist.'}), 404
+
     return jsonify({
         'status': 'Food type successfully updated',
         'data': {
@@ -109,7 +113,7 @@ def delete_food():
     db.execute(
         'DELETE FROM food'
         ' WHERE id=?',
-        food_id
+        (food_id,)
     )
     db.commit()
 
