@@ -116,6 +116,10 @@ def update_fish():
         ' WHERE id=?',
         (fish_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Fish does not exist.'}), 404
+
     return jsonify({
         'status': 'Fish successfully updated',
         'data': {

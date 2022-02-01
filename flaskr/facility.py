@@ -133,6 +133,9 @@ def update_facility():
         (facility_id,)
     ).fetchone()
 
+    if not check:
+        return jsonify({'status': 'Facility list does not exist.'}), 404
+
     return jsonify({
         'status': 'Facility list successfully updated',
         'data': {

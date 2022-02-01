@@ -35,7 +35,7 @@ def set_feeding_schedule():
     elif not food_type_id:
         return jsonify({"status": "Food type is required."}), 403
     elif not schedule:
-        return jsonify({"status": "Status is required."}), 403
+        return jsonify({"status": "Schedule is required."}), 403
     elif not available_type_quantity:
         return jsonify({"status": "Available type quantity is required."}), 403
 
@@ -111,6 +111,9 @@ def update_feeding_schedule():
         'WHERE id=?',
         (feeding_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Feeding schedule does not exist.'}), 404
 
     return jsonify({
         "status": "Feeding schedule successfully updated.",

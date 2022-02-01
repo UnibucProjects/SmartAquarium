@@ -85,6 +85,10 @@ def update_food():
         ' WHERE id=?',
         (food_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Food does not exist.'}), 404
+
     return jsonify({
         'status': 'Food type successfully updated',
         'data': {

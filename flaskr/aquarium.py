@@ -8,19 +8,20 @@ bp = Blueprint("aquarium", __name__)
 @bp.route("/aquarium", methods=["GET"])
 def get_aquarium():
     all_aquariums = get_db().execute(
-        'SELECT id, timestamp, default_mode, total_food_quantity'
+        'SELECT id, timestamp, name, default_mode, total_food_quantity'
         ' FROM aquarium'
         ' ORDER BY timestamp DESC'
     ).fetchall()
     result = ""
     for row in all_aquariums:
-        result = result + str(row['id']) + " " + str(row['default_mode']) + " " + str(row['total_food_quantity']) \
+        result = result + str(row['id']) + " " + str(row['name']) + " " + str(row['default_mode']) + " " + str(row['total_food_quantity']) \
                  + " " + str(row['timestamp']) + "\n"
     return result
 
 
 @bp.route("/aquarium", methods=["POST"])
 def set_aquarium():
+    name = request.form["name"]
     default_mode = request.form["mode"]
     total_quantity = request.form["total_quant"]
 
@@ -28,27 +29,31 @@ def set_aquarium():
         return jsonify({'status': 'Default mode is required.'}), 403
     elif not total_quantity:
         return jsonify({'status': 'Total quantity is required.'}), 403
+    elif not name:
+        return jsonify({'status': 'Name is required.'}), 403
 
+    print(name)
     print(default_mode)
     print(total_quantity)
 
     db = get_db()
     db.execute(
-        'INSERT INTO aquarium(default_mode, total_food_quantity)'
-        ' VALUES (?, ?)',
-        (default_mode, total_quantity)
+        'INSERT INTO aquarium(name, default_mode, total_food_quantity)'
+        ' VALUES (?, ?, ?)',
+        (name, default_mode, total_quantity)
     )
     db.commit()
 
     check = get_db().execute(
-        'SELECT id, timestamp, default_mode, total_food_quantity'
+        'SELECT id, timestamp, name, default_mode, total_food_quantity'
         ' FROM aquarium'
         ' ORDER BY timestamp DESC'
     ).fetchone()
     return jsonify({
-        'status': 'Default mode and total quantity successfully recorded',
+        'status': 'Aquarium successfully recorded',
         'data': {
             'id': check['id'],
+            'name': check['name'],
             'timestamp': check['timestamp'],
             'default_mode': check['default_mode'],
             'total_food_quantity': check['total_food_quantity']
@@ -58,17 +63,21 @@ def set_aquarium():
 
 @bp.route("/aquarium", methods=["PUT"])
 def update_aquarium():
+    name = request.form["name"]
     aquarium_id = request.form["id"]
     default_mode = request.form["mode"]
     total_food_quantity = request.form["total_quant"]
 
     if not aquarium_id:
         return jsonify({'status': 'Aquarium id is required.'}), 403
+    elif not name:
+        return jsonify({'status': 'Name is required.'}), 403
     elif not total_food_quantity:
         return jsonify({'status': 'Total food quantity is required.'}), 403
     elif not default_mode:
         return jsonify({'status': 'Default mode is required.'}), 403
 
+    print(name)
     print(aquarium_id)
     print(total_food_quantity)
     print(default_mode)
@@ -76,22 +85,27 @@ def update_aquarium():
     db = get_db()
     db.execute(
         'UPDATE aquarium'
-        ' SET default_mode=?, total_food_quantity=?, timestamp=CURRENT_TIMESTAMP'
+        ' SET name=?, default_mode=?, total_food_quantity=?, timestamp=CURRENT_TIMESTAMP'
         ' WHERE id=?',
-        (default_mode, total_food_quantity, aquarium_id)
+        (name, default_mode, total_food_quantity, aquarium_id)
     )
     db.commit()
 
     check = get_db().execute(
-        'SELECT id, timestamp, default_mode, total_food_quantity'
+        'SELECT id, name, timestamp, default_mode, total_food_quantity'
         ' FROM aquarium'
         ' WHERE id=?',
         (aquarium_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Aquarium does not exist.'}), 404
+
     return jsonify({
         'status': 'Aquarium successfully updated',
         'data': {
             'id': check['id'],
+            'name': check['name'],
             'timestamp': check['timestamp'],
             'default_mode': check['default_mode'],
             'total_food_quantity': check['total_food_quantity']

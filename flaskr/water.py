@@ -104,6 +104,10 @@ def update_water():
         ' WHERE id=?',
         (water_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Water does not exist.'}), 404
+
     return jsonify({
         'status': 'Water successfully updated',
         'data': {
