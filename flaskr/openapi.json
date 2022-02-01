@@ -117,6 +117,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Aquarium doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -255,6 +265,16 @@
           },
           "403": {
             "description": "Facility couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility doesn't exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -407,6 +427,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Feeding schedule doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -545,6 +575,16 @@
           },
           "403": {
             "description": "Fish couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fish doesn't exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -697,6 +737,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Fish type doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -835,6 +885,16 @@
           },
           "403": {
             "description": "Food couldn't be updated because the request body is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Food doesn't exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -987,6 +1047,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Light doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -1132,6 +1202,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Water doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -1209,6 +1289,9 @@
                 "id": {
                   "type": "integer"
                 },
+                "name": {
+                  "type": "string"
+                },
                 "default_mode": {
                   "type": "string"
                 },
@@ -1226,6 +1309,9 @@
       "NewAquarium": {
         "type": "object",
         "properties":{
+          "name": {
+            "type": "string"
+          },
           "mode": {
             "type": "string"
           },
@@ -1239,6 +1325,9 @@
         "properties":{
           "id": {
             "type": "integer"
+          },
+          "name": {
+            "type": "string"
           },
           "mode": {
             "type": "string"
@@ -1259,6 +1348,9 @@
             "properties": {
               "id": {
                 "type": "integer"
+              },
+              "name": {
+                "type": "string"
               },
               "default_mode": {
                 "type": "string"
