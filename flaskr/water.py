@@ -102,8 +102,12 @@ def update_water():
         'SELECT *'
         ' FROM water'
         ' WHERE id=?',
-        water_id
+        (water_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Water does not exist.'}), 404
+
     return jsonify({
         'status': 'Water successfully updated',
         'data': {
@@ -128,7 +132,7 @@ def delete_water():
     db.execute(
         'DELETE FROM water'
         ' WHERE id=?',
-        water_id
+        (water_id,)
     )
     db.commit()
 

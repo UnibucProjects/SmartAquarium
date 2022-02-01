@@ -130,8 +130,11 @@ def update_facility():
         'SELECT *'
         ' FROM facility'
         ' WHERE id=?',
-        facility_id
+        (facility_id,)
     ).fetchone()
+
+    if not check:
+        return jsonify({'status': 'Facility list does not exist.'}), 404
 
     return jsonify({
         'status': 'Facility list successfully updated',
@@ -161,7 +164,7 @@ def delete_facility():
     db.execute(
         'DELETE FROM facility'
         ' WHERE id=?',
-        facility_id
+        (facility_id,)
     )
     db.commit()
 
