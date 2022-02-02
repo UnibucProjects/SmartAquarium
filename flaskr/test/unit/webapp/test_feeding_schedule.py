@@ -124,8 +124,7 @@ def test_delete_feeding_schedule(client):
             ' FROM feeding_schedule'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': feeding_schedule['id']}
-    rv = client.delete('/feeding_schedule', data=payload, follow_redirects=True)
+    rv = client.delete('/feeding_schedule/' + str(feeding_schedule['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Feeding schedule successfully deleted."

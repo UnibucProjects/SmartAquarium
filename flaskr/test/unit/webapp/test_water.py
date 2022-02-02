@@ -102,8 +102,7 @@ def test_delete_water(client):
             ' FROM water'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': water['id']}
-    rv = client.delete('/water', data=payload, follow_redirects=True)
+    rv = client.delete('/water/' + str(water['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Water successfully deleted"

@@ -71,8 +71,7 @@ def test_delete_food(client):
             ' FROM food'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': food['id']}
-    rv = client.delete('/food', data=payload, follow_redirects=True)
+    rv = client.delete('/food/' + str(food['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Food type successfully deleted"
