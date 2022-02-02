@@ -4,10 +4,10 @@ from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from flask_restful import Api, Resource
 
+from change_light import LightColor
 from aquarium_mode import AquariumMode
 import db
 import auth
-# from flaskr.aquarium_mode import AquariumMode
 import food
 import aquarium
 import feeding_schedule
@@ -22,7 +22,7 @@ import light
 import eventlet
 import json
 import time
-import os 
+import os
 
 eventlet.monkey_patch()
 
@@ -37,9 +37,9 @@ topic = 'python/mqtt'
 
 
 def create_app(test_config=None):
-    
+
     # create and configure the app
-    global app 
+    global app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -113,8 +113,8 @@ def thread_water_preferences():
 def create_rest_api(app):
 
     api = Api(app)
-    # api.add_resource(AquariumMode, '/aquariumMode/<int:id>')
     api.add_resource(AquariumMode, '/aquariumMode/<int:id>')
+    api.add_resource(LightColor, '/lightColor/<int:aquarium_id>')
     return api
 
 

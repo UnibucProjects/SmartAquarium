@@ -1,7 +1,6 @@
 from flask import request
 from flask_restful import Resource
 from db import get_db
-from enum import Enum
 
 aquarium_types = ['crescatorie', 'petShop', 'personal']
 
