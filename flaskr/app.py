@@ -2,10 +2,12 @@ from flask import Flask
 from threading import Thread
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
+from flask_restful import Api, Resource
 
-
+from aquarium_mode import AquariumMode
 import db
 import auth
+# from flaskr.aquarium_mode import AquariumMode
 import food
 import aquarium
 import feeding_schedule
@@ -25,6 +27,7 @@ import os
 eventlet.monkey_patch()
 
 app = None
+api = None
 mqtt = None
 socketio = None
 thread = None
@@ -107,10 +110,17 @@ def thread_water_preferences():
         mqtt.publish(topic, message)
 
 
+def create_rest_api():
+    global api
+    api = Api(app)
+    # api.add_resource(AquariumMode, '/aquariumMode/<int:id>')
+    api.add_resource(AquariumMode, '/aquariumMode/<int:id>/<string:type>', )
+
+
 def create_mqtt_app():
-    global app 
+    global app
     # Setup connection to mqtt broker
-    app.config['MQTT_BROKER_URL'] = 'localhost' 
+    app.config['MQTT_BROKER_URL'] = 'localhost'
     app.config['MQTT_BROKER_PORT'] = 1883  # default port for non-tls connection
     app.config['MQTT_USERNAME'] = ''  # set the username here if you need authentication for the broker
     app.config['MQTT_PASSWORD'] = ''  # set the password here if the broker demands authentication
@@ -119,13 +129,14 @@ def create_mqtt_app():
 
     global mqtt
     mqtt = Mqtt(app)
-    global socketio 
+    global socketio
     socketio = SocketIO(app, async_mode="eventlet")
 
 
 def run_socketio_app():
-    global app 
+    global app
     create_app()
+    create_rest_api()
     create_mqtt_app()
     socketio.run(app, host='localhost', port=5000, use_reloader=False, debug=True)
 
