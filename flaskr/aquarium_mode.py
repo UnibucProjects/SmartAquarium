@@ -65,4 +65,4 @@ class AquariumMode(Resource):
         db.execute(types_preferences[type], (light_id['id'],))
         db.commit()
 
-        return {'Status' : 'Aquaruim mode changed successfully'} , 200
+        return {'Status': 'Aquarium mode changed successfully'}, 200

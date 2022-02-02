@@ -147,6 +147,33 @@ To get a local copy up and running follow these simple steps.
    ```sh
    flask run
    ```  
+   
+### RESTler installation
+
+1. <a href="https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60">Install .NET 5.0</a>
+2. Download RESTler repository in the same folder where the project is and open the RESTler folder
+    ```sh
+    git clone https://github.com/microsoft/restler-fuzzer.git
+    cd restler-fuzzer
+    ```
+3. Create a folder for RESTler binary files
+    ```sh
+    mkdir ../restler_bin
+    ```
+4. Build RESTler project
+    ```sh
+    python ./build-restler.py --dest_dir ../restler_bin --dotnet_package_source https://api.nuget.org/v3/index.json
+    ```
+5. Compile RESTler project
+    ```sh
+    cd ../restler_bin
+    dotnet ./restler/Restler.dll compile --api_spec ../SmartCoffeeMachine/openapi.json
+    ```
+6. Run RESTler project
+    ```sh
+    cd Compile
+    dotnet ../restler/Restler.dll test --grammar_file grammar.py --dictionary_file dict.json --settings engine_settings.json --no_ssl
+    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

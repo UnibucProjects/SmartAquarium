@@ -175,6 +175,98 @@
       }
     },
 
+    "/aquariumMode/{id}": {
+      "get": {
+        "summary": "Get the aquarium mode",
+        "operationId": "get_aquarium_mode",
+        "tags": [
+          "Aquarium mode"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Aquarium mode request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully aquarium mode",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid aquarium id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update aquarium mode",
+        "operationId": "update_aquarium_mode",
+        "tags": [
+          "Aquarium mode"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Aquarium mode request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateAquariumMode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aquarium mode successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The aquarium id is wrong or the type doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/facility": {
       "get": {
         "summary": "Get the facilities from the database",
@@ -1074,7 +1166,7 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "description": "Light request Id",
+            "description": "Light request id",
             "schema": {
               "$ref": "#/components/schemas/id"
             }
@@ -1093,6 +1185,98 @@
           },
           "403": {
             "description": "Light couldn't be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/lightColor/{id}": {
+      "get": {
+        "summary": "Get light color for a specified aquarium",
+        "operationId": "get_light_color",
+        "tags": [
+          "Light color"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Light color request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved light color",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "403": {
+            "description": "Wrong aquarium id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update light color for a specified aquarium",
+        "operationId": "update_light_color",
+        "tags": [
+          "Light color"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Light color request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody":{
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/UpdateLightColor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Light color successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Wrong aquarium id",
             "content": {
               "application/json": {
                 "schema": {
@@ -1362,6 +1546,15 @@
                 "type": "string"
               }
             }
+          }
+        }
+      },
+
+      "UpdateAquariumMode": {
+        "type": "object",
+        "properties":{
+          "type": {
+            "type": "string"
           }
         }
       },
@@ -1948,6 +2141,15 @@
         }
       },
 
+      "UpdateLightColor": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+
       "WaterListResponse": {
         "type": "array",
         "items": {
@@ -2362,7 +2564,7 @@
           }
         }
       },
-      "SuccessfullyWatertUpdate": {
+      "SuccessfullyWaterUpdate": {
         "description": "Water successfully updated",
         "content": {
           "application/json": {
@@ -2372,7 +2574,7 @@
           }
         }
       },
-      "SuccessfullyWatertDelete": {
+      "SuccessfullyWaterDelete": {
         "description": "Water successfully deleted",
         "content": {
           "application/json": {
