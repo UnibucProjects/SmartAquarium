@@ -4,7 +4,7 @@ from datetime import datetime
 
 def feed_the_fish():
     current_time = datetime.now()
-    current_hour = current_time.strftime("%H:00")
+    current_hour = current_time.strftime("%H:%M")
 
     message_queue_feeding = ""
 

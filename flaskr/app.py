@@ -109,7 +109,10 @@ def background_thread():
         # requires access to the db.
         with app.app_context():
             # message = 'dummy message'
-            message = json.dumps(status.get_status(), default=str)
+            message = '\n\nSystem status: \n'
+            message += json.dumps(status.get_status(), default=str)
+            message += '\n\nUtility notifications:\n'
+            message += json.dumps(status.get_utility_status(), default=str)
         # Publish
         mqtt.publish(topic, message)
 
