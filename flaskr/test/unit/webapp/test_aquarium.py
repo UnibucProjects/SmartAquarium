@@ -71,8 +71,7 @@ def test_delete_aquarium(client):
             ' FROM aquarium'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': aquarium['id']}
-    rv = client.delete('/aquarium', data=payload, follow_redirects=True)
+    rv = client.delete('/aquarium/' + str(aquarium['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Aquarium successfully deleted"

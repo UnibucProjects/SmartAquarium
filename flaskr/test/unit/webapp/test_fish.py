@@ -124,8 +124,7 @@ def test_delete_fish(client):
             ' FROM fish'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': fish['id']}
-    rv = client.delete('/fish', data=payload, follow_redirects=True)
+    rv = client.delete('/fish/' + str(fish['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Fish successfully deleted."

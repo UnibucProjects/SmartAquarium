@@ -1,0 +1,28 @@
+asyncapi: 2.3.0
+info:
+  title: SmartAquarium
+  version: 1.0.0
+  description: This application allows you to manage your aquariums, by changing different options or setting feeding schedule
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  development:
+    url: tcp://localhost:1883
+    description: Mosquitto Server
+    protocol: mqtt
+channels:
+  python/mqtt:
+    description: This channel shows the information about the current status in the project
+    publish:
+      message:
+        name: status
+        payload:
+          description: Current status
+          type: string
+          examples:
+            - { "data": { "food": { "type": "Goldfish", "quantity": 150.0, "timestamp": "2022-02-02 13:05:59" }, "aquarium": { "default_mode": "crescatorie", "total_food_quantity": 0.0, "timestamp": "202
+              2-02-02 13:05:11" }, "light": { "timestamp": "2022-02-02 13:06:09", "aquarium_id": 1, "intensity": 20.0, "color": "red", "schedule": "good" } } }
+            - {"status": "The food isn't set. "}
+            - Temperature auto-check!
+            - {"temperature check": "--aquarium 1 temperature was examined and set to 15.0.-- " }
