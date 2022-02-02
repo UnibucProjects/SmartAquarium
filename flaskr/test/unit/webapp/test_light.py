@@ -102,8 +102,7 @@ def test_delete_light(client):
             ' FROM light'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': light['id']}
-    rv = client.delete('/light', data=payload, follow_redirects=True)
+    rv = client.delete('/light/' + str(light['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Light successfully deleted."

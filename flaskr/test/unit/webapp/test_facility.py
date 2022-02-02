@@ -102,8 +102,7 @@ def test_delete_facility(client):
             ' FROM facility'
             ' ORDER BY timestamp DESC'
         ).fetchone()
-    payload = {'id': facility['id']}
-    rv = client.delete('/facility', data=payload, follow_redirects=True)
+    rv = client.delete('/facility/' + str(facility['id']), follow_redirects=True)
     res = json.loads(rv.data.decode())
     assert rv.status_code == 200
     assert res["status"] == "Facility list successfully deleted"
