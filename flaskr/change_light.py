@@ -11,9 +11,9 @@ def is_aquarium_id_valid(id):
         'WHERE id=?', (id,)
         ).fetchone()
     if aquariumMode is None:
-        return False;
+        return False
     else:
-        return True;
+        return True
 
 
 class LightColor(Resource):
