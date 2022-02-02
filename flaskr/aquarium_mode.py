@@ -6,15 +6,15 @@ aquarium_types = ['crescatorie', 'petShop', 'personal']
 
 types_preferences = {aquarium_types[0] :
     "UPDATE light "
-    "SET color='white', intensity=85, schedule = 'frequently' "
+    "SET color='white' "
     "WHERE id=?",
     aquarium_types[1] :
     "UPDATE light "
-    "SET color='blue', intensity=60, schedule = 'normal' "
+    "SET color='blue'"
     "WHERE id=?",
     aquarium_types[2] :
     "UPDATE light "
-    "SET color='yellow', intensity=50, schedule = 'moderate' "
+    "SET color='yellow'"
     "WHERE id=?",
 }
 
