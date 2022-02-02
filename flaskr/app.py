@@ -89,7 +89,7 @@ def create_app(test_config=None):
 def background_thread():
     count = 0
     while True:
-        time.sleep(1)
+        time.sleep(5)
         # Using app context is required because the get_status() functions
         # requires access to the db.
         with app.app_context():
@@ -105,6 +105,8 @@ def thread_water_preferences():
         with app.app_context():
             message = '\nTemperature auto-check!\n'
             message += json.dumps(water_preferences.fix_temperature(), default=str)
+            message += '\n\nWater quality summary\n'
+            message += json.dumps(water_preferences.quality_check(), default=str)
             message += '\n'
         # Publish
         mqtt.publish(topic, message)

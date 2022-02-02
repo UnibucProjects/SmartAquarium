@@ -58,3 +58,60 @@ def fix_temperature():
     return {
         'temperature check': message_queue_for_aquariums
     }
+
+
+def quality_check():
+    min_ph = 4
+    max_ph = 6
+    min_oxygen = 50
+    max_oxygen = 90
+    min_bacteria = 10
+    max_bacteria = 50
+
+    aquariums = get_db().execute(
+        'SELECT id'
+        ' FROM aquarium'
+    ).fetchall()
+
+    message_queue = ""
+
+    if aquariums is not None:
+        for aq in aquariums:
+            aq_id = aq['id']
+            water_status = get_db().execute(
+                'SELECT pH, oxygen, bacteria, timestamp'
+                ' FROM water'
+                f' WHERE aquarium_id={aq_id}'
+                ' ORDER BY timestamp DESC'
+            ).fetchone()
+
+            if water_status is not None:
+                message_queue += f"--aquarium {aq['id']}:"
+                issues = 0
+                if water_status['pH'] > max_ph:
+                    message_queue += " WARNING: pH levels too high."
+                    issues += 1
+                elif water_status['pH'] < min_ph:
+                    message_queue += " WARNING: pH levels too low."
+                    issues += 1
+
+                if water_status['oxygen'] > max_oxygen:
+                    message_queue += " WARNING: Oxygen levels too high."
+                    issues += 1
+                elif water_status['oxygen'] < min_oxygen:
+                    message_queue += " WARNING: Oxygen levels too low."
+                    issues += 1
+
+                if water_status['bacteria'] > max_bacteria:
+                    message_queue += " WARNING: Bacteria levels too high."
+                    issues += 1
+                elif water_status['bacteria'] < min_bacteria:
+                    message_queue += " WARNING: Bacteria levels too low."
+                    issues += 1
+
+                if issues == 0:
+                    message_queue += ' No issues detected.'
+
+    return {
+        'water quality check': message_queue
+    }
