@@ -13,6 +13,7 @@ import food
 import aquarium
 import feeding_schedule
 import water_preferences
+import light_preferences
 import status
 import fish_type
 import facility
@@ -50,7 +51,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        global thread, thread_water_prefs, thread_feed_check
+        global thread, thread_water_prefs, thread_feed_check, thread_light_prefs
         if thread is None:
             thread = Thread(target=background_thread)
             thread.daemon = True
@@ -67,6 +68,10 @@ def create_app(test_config=None):
             thread_feed_check = Thread(target=thread_feed_fish)
             thread_feed_check.daemon = True
             thread_feed_check.start()
+
+            thread_light_prefs = Thread(target=thread_light_preferences)
+            thread_light_prefs.daemon = True
+            thread_light_prefs.start()
 
         return 'Hello, World!'
 
@@ -99,7 +104,7 @@ def create_app(test_config=None):
 def background_thread():
     count = 0
     while True:
-        time.sleep(5)
+        time.sleep(7)
         # Using app context is required because the get_status() functions
         # requires access to the db.
         with app.app_context():
@@ -128,6 +133,17 @@ def thread_water_preferences():
             message += json.dumps(water_preferences.fix_temperature(), default=str)
             message += '\n\nWater quality summary\n'
             message += json.dumps(water_preferences.quality_check(), default=str)
+            message += '\n'
+        # Publish
+        mqtt.publish(topic, message)
+
+
+def thread_light_preferences():
+    while True:
+        time.sleep(5)
+        with app.app_context():
+            message = '\nLight intensity auto-check!\n'
+            message += json.dumps(light_preferences.fix_light_intensity(), default=str)
             message += '\n'
         # Publish
         mqtt.publish(topic, message)
