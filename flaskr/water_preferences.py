@@ -65,8 +65,10 @@ def quality_check():
     max_ph = 6
     min_oxygen = 50
     max_oxygen = 90
-    min_bacteria = 10
-    max_bacteria = 50
+
+    default_ph = 5
+    default_oxygen = 70
+
 
     aquariums = get_db().execute(
         'SELECT id'
@@ -74,39 +76,75 @@ def quality_check():
     ).fetchall()
 
     message_queue = ""
+    db = get_db()
 
     if aquariums is not None:
         for aq in aquariums:
             aq_id = aq['id']
-            water_status = get_db().execute(
-                'SELECT pH, oxygen, bacteria, timestamp'
+            water_status = db.execute(
+                'SELECT *'
                 ' FROM water'
                 f' WHERE aquarium_id={aq_id}'
-                ' ORDER BY timestamp DESC'
+                ' ORDER BY id DESC'
             ).fetchone()
-
             if water_status is not None:
                 message_queue += f"--aquarium {aq['id']}:"
                 issues = 0
                 if water_status['pH'] > max_ph:
                     message_queue += " WARNING: pH levels too high."
+                    message_queue += f" Resetting to {default_ph}."
+                    db.execute(
+                        'UPDATE water'
+                        ' SET pH=?'
+                        ' WHERE id=?',
+                        (default_ph, water_status['id'])
+                    )
+                    db.commit()
                     issues += 1
                 elif water_status['pH'] < min_ph:
                     message_queue += " WARNING: pH levels too low."
+                    message_queue += f" Resetting to {default_ph}."
+                    db.execute(
+                        'UPDATE water'
+                        ' SET pH=?'
+                        ' WHERE id=?',
+                        (default_ph, water_status['id'])
+                    )
+                    db.commit()
                     issues += 1
 
                 if water_status['oxygen'] > max_oxygen:
                     message_queue += " WARNING: Oxygen levels too high."
+                    message_queue += f" Resetting to {default_oxygen}."
+                    db.execute(
+                        'UPDATE water'
+                        ' SET oxygen=?'
+                        ' WHERE id=?',
+                        (default_oxygen, water_status['id'])
+                    )
+                    db.commit()
                     issues += 1
                 elif water_status['oxygen'] < min_oxygen:
                     message_queue += " WARNING: Oxygen levels too low."
+                    message_queue += f" Resetting to {default_oxygen}."
+                    db.execute(
+                        'UPDATE water'
+                        ' SET oxygen=?'
+                        ' WHERE id=?',
+                        (default_oxygen, water_status['id'])
+                    )
+                    db.commit()
                     issues += 1
 
-                if water_status['bacteria'] > max_bacteria:
-                    message_queue += " WARNING: Bacteria levels too high."
-                    issues += 1
-                elif water_status['bacteria'] < min_bacteria:
-                    message_queue += " WARNING: Bacteria levels too low."
+                if water_status['bacteria'] > 0:
+                    message_queue += " WARNING: Bacteria detected. Cleaning up"
+                    db.execute(
+                        'UPDATE water'
+                        ' SET bacteria=0'
+                        ' WHERE id=?',
+                        (water_status['id'],)
+                    )
+                    db.commit()
                     issues += 1
 
                 if issues == 0:
