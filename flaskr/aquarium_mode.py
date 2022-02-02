@@ -1,3 +1,4 @@
+from flask import request
 from flask_restful import Resource
 from db import get_db
 from enum import Enum
@@ -26,12 +27,14 @@ class AquariumMode(Resource):
             'WHERE id=?', (str(id),)
             ).fetchone()
         if aquariumMode is None:
-            return {'Status': 'Invalid aquarium id'}
+            return {'Status': 'Invalid aquarium id'}, 403
         else:
-            return {'Aquarium mode': str(aquariumMode['default_mode'])};
+            return {'Aquarium mode': str(aquariumMode['default_mode'])}, 200
 
 
-    def put(self, id, type):
+    def put(self, id):
+        type = request.args.getlist('type')[0]
+
         db = get_db()
         aquarium_id = get_db().execute(
             'SELECT id '
@@ -40,27 +43,17 @@ class AquariumMode(Resource):
             ).fetchone()
 
         if type not in aquarium_types:
-            return {'Status' : 'Undentified type'}
-
+            return {'Status' : 'Undentified type'}, 403
         if aquarium_id is None:
-            return {'Status' : 'No aquarium with this id'}
+            return {'Status' : 'No aquarium with this id'}, 403
 
-        query =  db.execute(
+        db.execute(
             'UPDATE aquarium '
             'SET default_mode=? '
             'WHERE id=?', (type, str(id))
             )
 
         db.commit()
-
-        # light_id = db.execute(
-        #     "SELECT id from "
-        #     "(SELECT id, timestamp "
-        #     "FROM light "
-        #     "WHERE aquarium_id=?) "
-        #     "ORDER BY timestamp DESC "
-        #     ,(str(aquarium_id), )
-        #     ).fetchone()
 
         light_id = db.execute(
             "SELECT id, timestamp "
@@ -70,7 +63,7 @@ class AquariumMode(Resource):
             ,(str(id), )
             ).fetchone()
 
-        db.execute(types_preferences[type], (str(light_id['id']),))
+        db.execute(types_preferences[type], (light_id['id'],))
         db.commit()
 
-        return {'Status' : 'Aquaruim mode changed successfully'}
+        return {'Status' : 'Aquaruim mode changed successfully'} , 200

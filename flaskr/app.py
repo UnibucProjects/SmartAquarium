@@ -112,11 +112,12 @@ def thread_water_preferences():
         mqtt.publish(topic, message)
 
 
-def create_rest_api():
-    global api
+def create_rest_api(app):
+
     api = Api(app)
     # api.add_resource(AquariumMode, '/aquariumMode/<int:id>')
-    api.add_resource(AquariumMode, '/aquariumMode/<int:id>/<string:type>', )
+    api.add_resource(AquariumMode, '/aquariumMode/<int:id>')
+    return api
 
 
 def create_mqtt_app():
@@ -138,7 +139,7 @@ def create_mqtt_app():
 def run_socketio_app():
     global app
     create_app()
-    create_rest_api()
+    create_rest_api(app)
     create_mqtt_app()
     socketio.run(app, host='localhost', port=5000, use_reloader=False, debug=True)
 
