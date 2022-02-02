@@ -4,6 +4,7 @@ from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from flask_restful import Api, Resource
 
+from water_data_sender import parse_data, send_data
 from change_light import LightColor
 from aquarium_mode import AquariumMode
 import db
@@ -58,6 +59,10 @@ def create_app(test_config=None):
             thread_water_prefs.daemon = True
             thread_water_prefs.start()
 
+            thread_water_data = Thread(target=tread_send_water_data)
+            thread_water_data.daemon = True
+            thread_water_data.start()
+
         return 'Hello, World!'
 
     if test_config is None:
@@ -108,6 +113,14 @@ def thread_water_preferences():
             message += '\n'
         # Publish
         mqtt.publish(topic, message)
+
+
+def tread_send_water_data():
+    water_data = parse_data('WaterData.csv')
+    sleepTime = 10
+    aquarium_id = 1
+    url = 'http://[::1]:5000/water'
+    send_data(water_data, aquarium_id, sleepTime, url)
 
 
 def create_rest_api(app):
