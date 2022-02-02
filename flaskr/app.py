@@ -19,6 +19,7 @@ import facility
 import fish
 import water
 import light
+import feed
 
 import eventlet
 import json
@@ -33,7 +34,7 @@ mqtt = None
 socketio = None
 thread = None
 thread_water_prefs = None
-
+thread_feed_check = None
 topic = 'python/mqtt'
 
 
@@ -49,7 +50,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def hello():
-        global thread, thread_water_prefs
+        global thread, thread_water_prefs, thread_feed_check
         if thread is None:
             thread = Thread(target=background_thread)
             thread.daemon = True
@@ -62,6 +63,10 @@ def create_app(test_config=None):
             thread_water_data = Thread(target=tread_send_water_data)
             thread_water_data.daemon = True
             thread_water_data.start()
+
+            thread_feed_check = Thread(target=thread_feed_fish)
+            thread_feed_check.daemon = True
+            thread_feed_check.start()
 
         return 'Hello, World!'
 
@@ -104,6 +109,17 @@ def background_thread():
         mqtt.publish(topic, message)
 
 
+def thread_feed_fish():
+    while True:
+        with app.app_context():
+            message = '\n\nFeeding schedule check!\n'
+            message += json.dumps(feed.feed_the_fish(), default=str)
+            message += '\n'
+        # Publish
+        mqtt.publish(topic, message)
+        time.sleep(4)
+
+
 def thread_water_preferences():
     while True:
         time.sleep(3)
@@ -119,7 +135,7 @@ def thread_water_preferences():
 
 def tread_send_water_data():
     water_data = parse_data('WaterData.csv')
-    sleepTime = 10
+    sleepTime = 11
     aquarium_id = 1
     url = 'http://[::1]:5000/water'
     send_data(water_data, aquarium_id, sleepTime, url)

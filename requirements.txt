@@ -16,3 +16,8 @@ python-socketio==5.5.0
 six==1.16.0
 Werkzeug==2.0.2
 pytest==6.2.5
+
+pip~=20.2.3
+py~=1.11.0
+setuptools~=49.2.1
+requests~=2.27.1

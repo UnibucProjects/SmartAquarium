@@ -6,6 +6,7 @@ import csv
 
 water_data = []
 
+
 def parse_data(file_name):
     file = open(file_name)
     csvreader = csv.reader(file)
@@ -14,6 +15,7 @@ def parse_data(file_name):
         water_data.append(row)
 
     return water_data
+
 
 def send_data(data, aquarium_id, sleepTime, url):
     while(True):

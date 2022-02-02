@@ -19,6 +19,7 @@ def get_fish_type():
                  + "\n"
     return result
 
+
 @bp.route('/fish_type', methods=['POST'])
 def set_fish_type():
     type_name = request.form['name']
