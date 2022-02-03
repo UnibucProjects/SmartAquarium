@@ -143,10 +143,15 @@ To get a local copy up and running follow these simple steps.
    ```sh
    flask init-db
    ```  
-8. Run
-   ```sh
-   flask run
-   ```  
+8. Open `flaskr` folder and add some data in the database(this step should be repeated after every `flask init-db` command)
+    ```sh
+    cd flaskr
+    python initialize_database.py
+    ```
+10. Run
+    ```sh
+    flask run
+    ```  
    
 ### RESTler installation
 
