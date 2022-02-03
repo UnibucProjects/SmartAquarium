@@ -18,7 +18,7 @@ def get_max_aquarium_id():
     light_data = get_db().execute(
         'SELECT id, timestamp, default_mode, total_food_quantity'
         ' FROM aquarium'
-        ' ORDER BY timestamp DESC'
+        ' ORDER BY id DESC'
         ).fetchone()
     return light_data['id']
 

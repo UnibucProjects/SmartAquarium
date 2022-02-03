@@ -20,7 +20,7 @@ def test_get_aquarium_invalid_id(client):
         light_data = get_db().execute(
         'SELECT id, timestamp, default_mode, total_food_quantity'
         ' FROM aquarium'
-        ' ORDER BY timestamp DESC'
+        ' ORDER BY id DESC'
         ).fetchone()
     invalid_id = light_data['id'] + 1
     request = client.get('/aquariumMode/' + str(invalid_id))

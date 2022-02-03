@@ -21,3 +21,4 @@ pip~=20.2.3
 py~=1.11.0
 setuptools~=49.2.1
 requests~=2.27.1
+coverage==6.3.1
