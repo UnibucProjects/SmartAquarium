@@ -203,14 +203,14 @@ _For more examples, please refer to the [OpenAPI documentation](https://github.c
 - [x] CRUD feeding schedules
 - [x] CRUD water settings
 - [x] CRUD light settings
-- [ ] Water
+- [x] Water
     - [x] Measure temperature
     - [x] Adjust conditions
-    - [ ] Quality analysis
-- [ ] Food
+    - [x] Quality analysis
+- [x] Food
     - [x] Release food
-    - [ ] Notify empty containers
-- [ ] Light
+    - [x] Notify empty containers
+- [x] Light
 - [ ] Health
 - [x] Customization
 
