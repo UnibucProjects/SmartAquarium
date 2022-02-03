@@ -240,8 +240,6 @@ Distributed under the MIT License. See <a href="https://github.com/UnibucProject
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
 * [Choose an Open Source License](https://choosealicense.com)
 * [Flask Tutorial](https://flask.palletsprojects.com/en/2.0.x/tutorial/)
 * [Pytest Unit Test Tutorial](https://codethechange.stanford.edu/guides/guide_flask_unit_testing.html)
