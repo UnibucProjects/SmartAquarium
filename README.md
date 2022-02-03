@@ -248,6 +248,8 @@ Distributed under the MIT License. See <a href="https://github.com/UnibucProject
 * [Choose an Open Source License](https://choosealicense.com)
 * [Flask Tutorial](https://flask.palletsprojects.com/en/2.0.x/tutorial/)
 * [Pytest Unit Test Tutorial](https://codethechange.stanford.edu/guides/guide_flask_unit_testing.html)
+* [OpenAPI documentation](https://swagger.io/specification/)
+* [AsyncAPI documentation](https://www.asyncapi.com/docs/specifications/v2.0.0)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
