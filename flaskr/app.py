@@ -183,6 +183,8 @@ def create_mqtt_app():
     global socketio
     socketio = SocketIO(app, async_mode="eventlet")
 
+    return mqtt
+
 
 def run_socketio_app():
     global app
