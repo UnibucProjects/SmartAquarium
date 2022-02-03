@@ -62,18 +62,24 @@ def get_utility_status():
         'SELECT DISTINCT aquarium_id, electricity, movement_sensor, temperature_sensor, filter_sensor, weight_sensor'
         ' FROM facility'
     ).fetchall()
+    issues = 0
     if facilities is not None:
         for f in facilities:
-            if f['electricity'] != '1':
+            if f['electricity'] != 1:
                 message_queue_utility += f"-Electricity in aquarium {f['aquarium_id']} seems to be broken. Please fix!-"
-            elif f['movement_sensor'] != '1':
+                issues += 1
+            elif f['movement_sensor'] != 1:
                 message_queue_utility += f"-Moveement sensor in aquarium {f['aquarium_id']} seems to be broken. Please fix!-"
-            elif f['temperature_sensor'] != '1':
+                issues += 1
+            elif f['temperature_sensor'] != 1:
                 message_queue_utility += f"-Temperature sensor in aquarium {f['aquarium_id']} seems to be broken. Please fix!-"
-            elif f['filter_sensor'] != '1':
+                issues += 1
+            elif f['filter_sensor'] != 1:
                 message_queue_utility += f"-Filter sensor in aquarium {f['aquarium_id']} seems to be broken. Please fix!-"
-            elif f['weight_sensor'] != '1':
+                issues += 1
+            elif f['weight_sensor'] != 1:
                 message_queue_utility += f"-Weight sensor in aquarium {f['aquarium_id']} seems to be broken. Please fix!-"
-    if message_queue_utility == "Attention!  ":
-        message_queue_utility = "All utilities are working fine!"
+                issues += 1
+            if issues == 0:
+                message_queue_utility += f"All utilities in aquarium {f['aquarium_id']} are working fine!"
     return {'utility_status': message_queue_utility}
