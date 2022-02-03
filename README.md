@@ -172,7 +172,7 @@ To get a local copy up and running follow these simple steps.
 5. Compile RESTler project
     ```sh
     cd ../restler_bin
-    dotnet ./restler/Restler.dll compile --api_spec ../SmartCoffeeMachine/openapi.json
+    dotnet ./restler/Restler.dll compile --api_spec ../SmartAquarium/openapi.json
     ```
 6. Run RESTler project
     ```sh
