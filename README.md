@@ -190,7 +190,7 @@ To try out the application firstly run `python app.py` in the flaskr directory o
 Then, to listen to messages on the `python/mqtt` topic run `mosquitto_sub -h localhost -p 1883 -t python/mqtt` (MacOS) or `.\mosquitto_sub -h localhost -p 1883 -t python/mqtt` (Windows) in the mosquitto folder.<br/>
 To start the application send a get request to `http://[::1]:5000`.
 
-_For more examples, please refer to the [OpenAPI documentation](https://github.com/UnibucProjects/SmartAquarium/blob/main/flaskr/openapi.json) and [AsyncAPI documentation](https://github.com/UnibucProjects/SmartAquarium/blob/main/flaskr/asyncapi.yaml)_
+_For more examples, please refer to the [OpenAPI documentation](https://github.com/UnibucProjects/SmartAquarium/blob/main/openapi.json) and [AsyncAPI documentation](https://github.com/UnibucProjects/SmartAquarium/blob/main/asyncapi.yaml)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
